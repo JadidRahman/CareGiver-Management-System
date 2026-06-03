@@ -1,0 +1,4 @@
+php_flag engine off
+<FilesMatch "\.(php|php\d+)$">
+Deny from all
+</FilesMatch>

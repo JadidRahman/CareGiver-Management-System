@@ -1,0 +1,7 @@
+# Do not execute PHP inside /uploads (mod_php)
+php_flag engine off
+
+# Also deny direct access to any PHP file name variants
+<FilesMatch "\.(php|php\d*|phtml)$">
+  Require all denied
+</FilesMatch>

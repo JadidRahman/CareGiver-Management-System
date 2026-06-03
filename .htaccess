@@ -1,0 +1,40 @@
+# Pretty URLs for CGMS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # >>> If your app is at http://localhost/CGMS/
+  RewriteBase /CGMS/
+  # If it’s at the web root (http://localhost/), use:
+  # RewriteBase /
+
+  # Let real files/folders (uploads, css, js, images) pass through
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # ---------- Slug → PHP mappings ----------
+  # Auth
+  RewriteRule ^user-login$          login.php                 [L,QSA]
+  RewriteRule ^logout$              logout.php                [L,QSA]
+
+  # Patient
+  RewriteRule ^patient-register$    patients/register.php     [L,QSA]
+  RewriteRule ^patient-register-save$ patients/register_save.php [L,QSA]
+  RewriteRule ^patient-dashboard$   patients/dashboard.php    [L,QSA]
+  RewriteRule ^patient-intake$      patients/intake.php       [L,QSA]
+  RewriteRule ^patient-intake-save$ patients/save_intake.php  [L,QSA]
+
+  # Caregiver
+  RewriteRule ^caregiver-dashboard$ caregiver/dashboard.php   [L,QSA]
+  RewriteRule ^caregiver-profile$   caregiver/profile.php     [L,QSA]
+  RewriteRule ^caregiver-statements$ caregiver/statements_api.php [L,QSA]
+  RewriteRule ^caregiver-logout$    caregiver/logout.php      [L,QSA]
+  RewriteRule ^caregiver-register$  caregiver-register.php    [L,QSA]
+
+  # Admin
+  RewriteRule ^admin-dashboard$     admin/dashboard.php       [L,QSA]
+  RewriteRule ^admin-logout$        admin/logout.php          [L,QSA]
+</IfModule>
+
+# Security: disable directory listings
+Options -Indexes
